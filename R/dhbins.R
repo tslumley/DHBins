@@ -121,7 +121,7 @@ dhb_lookup<-function(names){
   if(any(is.na(idx)))
     warning(paste("could not match",paste(names[is.na(idx)],collapse=",")))
   canonical_name<-aliases$keyname[idx]
-  idx2<-match(canonical_name,dhbs$keyname)
+  idx2<-match(dhbs$keyname,canonical_name)
   idx2
 }
 
