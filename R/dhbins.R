@@ -135,14 +135,15 @@ dhbin<-function(radii=NULL,hex_colours="lightskyblue",text_colour="black",legend
 		idx<-dhb_lookup(names(hex_colours))
 		hex_colours<-hex_colours[idx]
 	}
-	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2,8),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
+        has.legend<-!is.null(legend_opts)
+	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,9),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
 	with(dhbs,hexes(x,y,radii,cols=hex_colours,flat=TRUE,border=border))
 	if (short)
 	  with(dhbs, text(x,y,shortname,cex=cex,col=text_colour))
 	else 
 	  with(dhbs, text(x,y,printname,cex=cex,col=text_colour))
 	if(!is.null(legend_opts)) {
-		do.call(legend, c(list(x=-2,y=9,bty="n"),legend_opts))
+		do.call(legend, c(list(x=-4.5,y=9,bty="n"),legend_opts))
 	}
 }
 
@@ -155,14 +156,15 @@ dhtri<-function(radii=NULL,tri_colours,text_colour="black",legend_opts=NULL,shor
 	  idx<-dhb_lookup(rownames(tri_colours))
 		tri_colours<-tri_colours[idx,]
 	}
-	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2,8),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
+        has.legend<-!is.null(legend_opts)
+	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,9),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
 	with(dhbs,triangles(x,y,radii,cols=tri_colours,flat=TRUE))
 	if (short)
 	  with(dhbs, text(x,y,shortname,cex=cex,col=text_colour))
 	else 
 	  with(dhbs, text(x,y,printname,cex=cex,col=text_colour))
 	if(!is.null(legend_opts)) {
-		do.call(legend, c(list(x=-2,y=9,bty="n"),legend_opts))
+		do.call(legend, c(list(x=-4.5,y=9,bty="n"),legend_opts))
 	}
 }
 

@@ -73,7 +73,7 @@ opar<-par(mfrow=c(2,3),mar=c(1,1,1,1))
 z<-rnorm(20)
 for(i in 1:6){
   z<-(rnorm(20)+z)/sqrt(2)
-  z1<- (z+3)/6
+  z1<- (z+4)/8
   col_z<-rgb(colorRamp(c("blue", "white","red"))(z1),max=255)
   dhbin(hex_colours=col_z,border="grey",short=TRUE,
         legend_opts=list(fill=c("red","white","blue"),
