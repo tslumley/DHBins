@@ -1,0 +1,86 @@
+\name{dhbin}
+\alias{dhbin}
+\alias{dhtri}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Hexmaps of New Zealand District Health Boards
+}
+\description{
+The 20 District Health Boards are the main administrative and funding units of the NZ national health system. These two functions draw stylised maps of the DHBs, along the lines of "statebins" for the US states. The hexagon for each DHB can be coloured and sized to show numeric data, and it can also be split into six triangles to show proportion or composition data. 
+}
+\usage{
+dhbin(radii = NULL, hex_colours = "lightskyblue", text_colour = "black",
+legend_opts = NULL, border = NULL, short = FALSE,cex=1)
+dhtri(radii = NULL, tri_colours, text_colour = "black", legend_opts = NULL,
+ short=FALSE,cex=1)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{radii}{
+Vector of radius measurements for the coloured part of each hexagon, with 1 as a full hexagon. If any are greater than 1, the vector is scaled to have maximum value 0.95, which is also the default value for all hexagons.  If it has names, they are matched to the DHB names or common alternative names.
+}
+  \item{hex_colours}{
+Vector of colours as names or hashtag colours.  If it has names, they are matched to the DHB names or common alternative names.
+}
+\item{tri_colours}{
+20 x 6 matrix of colours for the six triangles in each hexagon.  If it has row names, they are matched to the DHB names or common alternative names.
+}
+  \item{text_colour}{
+Colour for the label on all the hexagons.
+}
+  \item{legend_opts}{
+a list with arguments to \code{graphics::legend}, not including \code{x} and \code{y}, which are supplied, and \code{bty}, which is forced to \code{"n"}.  If not \code{NULL} a legend is drawn. 
+}
+  \item{border}{
+ \code{NULL} or a colour name to draw a border around each hex.
+}
+  \item{short}{
+If \code{TRUE}, label each hexagon with a 1-3 character short abbreviation rather than the full name. Especially useful for faceting.
+}
+\item{cex}{
+character expansion factor
+}
+
+}
+
+\value{
+Called for its side-effect
+}
+
+\seealso{
+\code{\link{tri_alloc}} for the Sainte-Laguë method to allocate triangles based on counts
+}
+\examples{
+
+data(dhb_cars)
+tris<-tri_alloc(dhb_cars[,-1], c("green","gold","orange","goldenrod"), names=dhb_cars$dhb )
+
+dhtri(tri_colours=tris,
+  legend=list(fill=c("green","gold","orange","goldenrod"),
+         border=NA,
+         legend=c("0","1","2","3+"),
+         title="Cars/Household")
+)
+
+
+households<-rowSums(dhb_cars[,-1])
+names(households)<-dhb_cars$dhb
+dhbin(radii=sqrt(households))
+title(main="Number of households in private dwellings")
+
+
+opar<-par(mfrow=c(2,3),mar=c(1,1,1,1))
+z<-rnorm(20)
+for(i in 1:6){
+  z<-(rnorm(20)+z)/sqrt(2)
+  z1<- (z+3)/6
+  col_z<-rgb(colorRamp(c("blue", "white","red"))(z1),max=255)
+  dhbin(hex_colours=col_z,border="grey",short=TRUE,
+        legend_opts=list(fill=c("red","white","blue"),
+                         legend=c("High","Medium","Low"),
+                         title=paste("Thing",i))
+  ) 
+}
+par(opar)
+	
+}

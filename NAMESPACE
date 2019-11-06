@@ -1,0 +1,2 @@
+import(graphics,grDevices)
+export(dhbin,dhtri,tri_alloc)
