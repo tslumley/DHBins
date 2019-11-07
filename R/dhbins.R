@@ -126,15 +126,20 @@ dhb_lookup<-function(names){
 }
 
 
-dhbin<-function(radii=NULL,hex_colours="lightskyblue",text_colour="black",legend_opts=NULL,border=NULL,short=FALSE,cex=0.8){
+dhbin<-function(radii=NULL,hex_colours="lightskyblue",DHB_names=NULL,text_colour="black",legend_opts=NULL,border=NULL,short=FALSE,cex=0.8){
 	if(is.null(radii)){
 		radii<-rep(0.95,nrow(dhbs))
 	}
 	if( max(radii)>1) radii<-0.95*radii/max(radii)
-	if (!is.null(names(hex_colours))){
-		idx<-dhb_lookup(names(hex_colours))
+        if(length(hex_colours)<20) hex_colours<-rep(hex_colours,length.out=20)
+        if(is.null(DHB_names)) DHB_names<-names(radii)
+        if (is.null(DHB_names)) DHB_names<-names(hex_colours)
+	if (!is.null(DHB_names)){
+		idx<-dhb_lookup(DHB_names)
 		hex_colours<-hex_colours[idx]
+                radii<-radii[idx]
 	}
+
         has.legend<-!is.null(legend_opts)
 	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,9),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
 	with(dhbs,hexes(x,y,radii,cols=hex_colours,flat=TRUE,border=border))
@@ -147,16 +152,20 @@ dhbin<-function(radii=NULL,hex_colours="lightskyblue",text_colour="black",legend
 	}
 }
 
-dhtri<-function(radii=NULL,tri_colours,text_colour="black",legend_opts=NULL,short=FALSE,cex=0.8){
+dhtri<-function(radii=NULL,tri_colours,DHB_names=NULL,text_colour="black",legend_opts=NULL,short=FALSE,cex=0.8){
 	if(is.null(radii)){
 		radii<-rep(0.95,nrow(dhbs))
 	}
 	if( max(radii)>1) radii<-0.95*radii/max(radii)
-	if (!is.null(rownames(tri_colours))){
-	  idx<-dhb_lookup(rownames(tri_colours))
+
+        if(is.null(DHB_names)) DHB_names<-names(radii)
+        if (is.null(DHB_names)) DHB_names<-rownames(tri_colours)
+	if (!is.null(DHB_names)){
+		idx<-dhb_lookup(DHB_names)
 		tri_colours<-tri_colours[idx,]
+                radii<-radii[idx]
 	}
-        has.legend<-!is.null(legend_opts)
+         has.legend<-!is.null(legend_opts)
 	with(dhbs,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,9),ylim=c(0,16),axes=FALSE,xlab="",ylab=""))
 	with(dhbs,triangles(x,y,radii,cols=tri_colours,flat=TRUE))
 	if (short)

@@ -9,9 +9,9 @@ Hexmaps of New Zealand District Health Boards
 The 20 District Health Boards are the main administrative and funding units of the NZ national health system. These two functions draw stylised maps of the DHBs, along the lines of "statebins" for the US states. The hexagon for each DHB can be coloured and sized to show numeric data, and it can also be split into six triangles to show proportion or composition data. 
 }
 \usage{
-dhbin(radii = NULL, hex_colours = "lightskyblue", text_colour = "black",
+dhbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
 legend_opts = NULL, border = NULL, short = FALSE,cex=1)
-dhtri(radii = NULL, tri_colours, text_colour = "black", legend_opts = NULL,
+dhtri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
  short=FALSE,cex=1)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -25,6 +25,7 @@ Vector of colours as names or hashtag colours.  If it has names, they are matche
 \item{tri_colours}{
 20 x 6 matrix of colours for the six triangles in each hexagon.  If it has row names, they are matched to the DHB names or common alternative names.
 }
+\item{DHB_names}{Vector of DHB names. If \code{NULL}, the function will look for this as the names of \code{radii} then as the names of \code{hex_colours} or the rownames of \code{tri_colours}}
   \item{text_colour}{
 Colour for the label on all the hexagons.
 }
