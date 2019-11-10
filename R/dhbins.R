@@ -11,7 +11,6 @@ hex_point<-c(1,.5,-0.5,-1,-0.5,0.5,1,NA)
 hex_flat<-c(0, 0.866025403784439,0.866025403784439,0,-0.866025403784439,-0.866025403784439,0,NA)
 
 
-
 triangles<-function (center_x, center_y, radii, cols, border = FALSE, asp = 1, flat=FALSE) 
 {
 	if (flat) {
@@ -91,6 +90,36 @@ x=c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,2,1,2,1,0)*(1.5),
 y=c(18,16,14,12,15,13,11,9,14,12,10,8,13,11,9,5,4,3,2,1)*sqrt(3)/2
 )
 
+dhmap_hex<-function(){
+    size=rep(0.95,20)
+    hex_x <- hex_point
+    hex_y <- hex_flat
+    
+    na.omit(
+        data.frame(
+            x=as.vector(t(outer(size, hex_x) + dhbs$x)),
+            y= as.vector(t(outer(size, hex_y) + dhbs$y)),
+            id =rep(dhbs$keyname,each=8)
+        )
+    )
+}
+
+
+dhmap_tri<-function(){
+    size=rep(0.95,20)
+    tri_x <- tri_point
+    tri_y <- tri_flat
+    
+    na.omit(
+        data.frame(
+            x=as.vector(t(outer(size, tri_x) + dhbs$x)),
+            y= as.vector(t(outer(size, tri_y) + dhbs$y)),
+            id =rep(paste(dhbs$keyname,1:6),each=5)
+        )
+    )
+}
+
+
 .aliases<-list(Northland=c("Northland","NDHB"),
               Waitemata=c("Waitemata","Waitematā"),
               "Counties Manukau"=c("Counties Manukau","Counties","CM Health"),
@@ -117,12 +146,16 @@ aliases<-data.frame(keyname=rep(names(.aliases),sapply(.aliases,length)),
                     alias=do.call(c,c(.aliases,use.names=FALSE)))
 
 dhb_lookup<-function(names){
+  canonical_name<-dhb_fixname(names)
+  idx2<-match(dhbs$keyname,canonical_name)
+  idx2
+}
+
+dhb_fixname<-function(names){
   idx<-match(names, aliases$alias)
   if(any(is.na(idx)))
     warning(paste("could not match",paste(names[is.na(idx)],collapse=",")))
-  canonical_name<-aliases$keyname[idx]
-  idx2<-match(dhbs$keyname,canonical_name)
-  idx2
+  aliases$keyname[idx]
 }
 
 

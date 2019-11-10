@@ -1,2 +1,2 @@
 import(graphics,grDevices)
-export(dhbin,dhtri,tri_alloc)
+export(dhbin,dhtri,tri_alloc,dhmap_hex,dhmap_tri, dhb_fixname)
