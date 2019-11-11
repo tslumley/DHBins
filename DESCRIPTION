@@ -4,6 +4,7 @@ Version: 0.3
 Author: Thomas Lumley
 Description: Hexagonal maps and triangular multiclass hex maps for New Zealand District Health Boards
 Imports: graphics, grDevices
+Depends: ggplot2
 License: GPL-3
 Maintainer: Thomas Lumley <t.lumley@auckland.ac.nz>
 
