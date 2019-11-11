@@ -34,19 +34,19 @@ Statistics New Zealand. Health Indicators.
 data(immune)
 summary(immune)
 
-immune$vax_gp<-cut(immune$Pcttotal,c(0,.80,.85,.90,.95,1))
+immune$vax_pct<-cut(immune$Pcttotal,c(0,.80,.85,.90,.95,1))
 ggplot(immune)+
-	geom_dhb(aes(fill=vax_gp,map_id=dhb_fixname(DHB)))+
+	geom_dhb(aes(fill=vax_pct,map_id=dhb_fixname(DHB)))+
 	scale_fill_viridis_d(drop=FALSE)+
 	geom_label_dhb(short=TRUE,colour="white")
 
 cols<-c("goldenrod","red","orange","gold","springgreen")
-with(immune, dhbin(hex_colours=cols[vax_gp], legend_opts=list(fill=cols,
+with(immune, dhbin(hex_colours=cols[vax_pct], legend_opts=list(fill=cols,
 legend=c("<80","80-85","85-90","90-95","95+"), title="Immunisation coverage (pct)")
  ))
 
 ## Add some transparency
-with(immune, dhbin(hex_colours=adjustcolor(cols[vax_gp],alpha.f=.5), legend_opts=list(fill=cols,
+with(immune, dhbin(hex_colours=adjustcolor(cols[vax_pct],alpha.f=.5), legend_opts=list(fill=cols,
 legend=c("<80","80-85","85-90","90-95","95+"), title="Immunisation coverage (pct)")
  ))
 
