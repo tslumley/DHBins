@@ -1,15 +1,16 @@
 \name{immune}
 \alias{immune}
+\alias{immune_long}
 \docType{data}
 \title{
 Immunisation coverage 
 }
 \description{
-The report measures the number of children who turned the milestone age of 5 years between 01-Jul-2019 and 30-Sep-2019 and who have completed their age appropriate immunisations by the time they turned the milestone age. The target is 95\%. Children are only counted once, according to 'prioritised ethnicity': the priority order is Māori, Pacific, Asian, other, NZ European.
+The report measures the number of children who turned the milestone age of 5 years between 01-Jul-2019 and 30-Sep-2019 and who have completed their age appropriate immunisations by the time they turned the milestone age. The target is 95\%. Children are only counted once, according to 'prioritised ethnicity': the priority order is Māori, Pacific, Asian, other, NZ European.  The \code{immune_long} variant is in long form with separate rows for each ethnicity, and with missing values where the population size is too small. 
 }
 \usage{data("immune")}
 \format{
-  A data frame with 20 observations on the following 19 variables.
+  For \code{immune}, a data frame with 20 observations on the following 19 variables.
   \describe{
     \item{\code{DHB}}{name of District Health Board}
     \item{\code{Ntotal}}{Number of children}
@@ -21,6 +22,14 @@ The report measures the number of children who turned the milestone age of 5 yea
     \item{\code{NAsian},\code{VaxAsian},\code{PctAsian} }{the same, for children of Asian ethnicities}
     \item{\code{NOther},\code{VaxOther},\code{PctOther}}{the same, for children of other ethnicities}
   }
+
+  For \code{immune_long}, a  data frame with 120 observations on the following 3 variables.
+  \describe{
+    \item{\code{DHB}}{name of District Health Board}
+    \item{\code{ethnicity}}{ethnicity: a factor with levels \code{total} \code{NZE} \code{Maori} \code{Pacific} \code{Asian} \code{Other}}
+    \item{\code{pct_vax}}{percent vaccinated, a factor with levels \code{[0,0.8)} \code{[0.8,0.85)} \code{[0.85,0.9)} \code{[0.9,0.95)} \code{[0.95,1)}}
+  }
+
 }
 
 \source{
@@ -39,6 +48,13 @@ ggplot(immune)+
 	geom_dhb(aes(fill=vax_pct,map_id=dhb_fixname(DHB)))+
 	scale_fill_viridis_d(drop=FALSE)+
 	geom_label_dhb(short=TRUE,colour="white")
+
+data(immune_long)
+ggplot(immune_long) + 
+   	geom_dhb(aes(map_id=dhb_fixname(DHB),fill=pct_vax),alpha=0.5,colour="lightgrey") +
+   	scale_fill_viridis_d(drop=FALSE)+
+   	geom_label_dhb(short=TRUE,colour="black")+
+   	facet_wrap(~ethnicity)
 
 cols<-c("goldenrod","red","orange","gold","springgreen")
 with(immune, dhbin(hex_colours=cols[vax_pct], legend_opts=list(fill=cols,

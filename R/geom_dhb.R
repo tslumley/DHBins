@@ -6,7 +6,7 @@ geom_dhb<-function(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend 
             coord_fixed(),
             theme(axis.title.x=element_blank(),
                   axis.text.x=element_blank(), axis.title.y=element_blank(),
-                  axis.text.y=element_blank())
+                  axis.text.y=element_blank(),panel.grid=element_blank())
 	)
 	
 }

@@ -143,7 +143,8 @@ dhmap_tri<-function(){
 )
 
 aliases<-data.frame(keyname=rep(names(.aliases),sapply(.aliases,length)),
-                    alias=do.call(c,c(.aliases,use.names=FALSE)))
+                    alias=do.call(c,c(.aliases,use.names=FALSE)),
+                    stringsAsFactors =FALSE)
 
 dhb_lookup<-function(names){
   canonical_name<-dhb_fixname(names)
