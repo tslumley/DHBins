@@ -1,9 +1,9 @@
 Package: DHBins
 Title: Hexmaps for NZ DHBs
-Version: 0.4
+Version: 0.5
 Author: Thomas Lumley
 Description: Hexagonal maps and triangular multiclass hex maps for New Zealand District Health Boards
-Imports: graphics, grDevices
+Imports: graphics, grDevices,grid
 Depends: ggplot2
 License: GPL-3
 Maintainer: Thomas Lumley <t.lumley@auckland.ac.nz>
