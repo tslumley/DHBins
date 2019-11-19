@@ -48,12 +48,12 @@ ggplot(immune)+
 	scale_fill_viridis_d(drop=FALSE)+
 	geom_label_dhb(short=TRUE,colour="white")
 
-## size variation, plus stacking to show the full-size hexes underneath
+## size variation, plus stacking to show the full-size hexes underneath,
+## plus no labels
 ggplot(immune)+
 	geom_dhb(aes(map_id=dhb_fixname(DHB)),fill="white",colour="grey",coord=FALSE)+
 	geom_dhb(aes(fill=vax_pct,map_id=dhb_fixname(DHB),radius=sqrt(Ntotal)),alpha=0.5)+
-	scale_fill_viridis_d(drop=FALSE)+
-	geom_label_dhb(short=TRUE,colour="black")
+	scale_fill_viridis_d(drop=FALSE)
 
 
 data(immune_long)
