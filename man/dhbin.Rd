@@ -1,18 +1,25 @@
 \name{dhbin}
 \alias{dhbin}
 \alias{dhtri}
+\alias{regionbin}
+\alias{regiontri}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Hexmaps of New Zealand District Health Boards
+Hexmaps of New Zealand Adminstrative Units
 }
 \description{
-The 20 District Health Boards are the main administrative and funding units of the NZ national health system. These two functions draw stylised maps of the DHBs, along the lines of "statebins" for the US states. The hexagon for each DHB can be coloured and sized to show numeric data, and it can also be split into six triangles to show proportion or composition data. 
+The 20 District Health Boards are the main administrative and funding units of the NZ national health system. The Regions are the second-level government divisions . These functions draw stylised maps of the DHBs and regions, along the lines of "statebins" for the US states. The hexagon for each location can be coloured and sized to show numeric data, and it can also be split into six triangles to show proportion or composition data. 
 }
 \usage{
 dhbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
 legend_opts = NULL, border = NULL, short = FALSE,cex=1)
 dhtri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
  short=FALSE,cex=1)
+regionbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
+legend_opts = NULL, border = NULL, short = FALSE,cex=1)
+regiontri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
+ short=FALSE,cex=1)
+ 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -83,5 +90,6 @@ for(i in 1:6){
   ) 
 }
 par(opar)
-	
+
+regionbin(hex_colours=rgb(colorRamp(c("blue", "white","red"))(z1),max=255),border=1,cex=0.7)
 }

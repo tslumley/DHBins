@@ -152,6 +152,13 @@ dhb_lookup<-function(names){
   idx2
 }
 
+dhb_lookuptri<-function(names){
+    canonical_name<-dhb_fixname(names)
+    tri_name<-paste(rep(dhbs$keyname,each=6),rep(1:6,nrow(dhbs)),sep="_")
+    idx2<-match(tri_name,canonical_name)
+    idx2
+}
+
 dhb_fixname<-function(names){
   idx<-match(names, aliases$alias)
   if(any(is.na(idx)))

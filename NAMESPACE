@@ -1,2 +1,3 @@
 import(graphics,grDevices,grid)
-export(dhbin,dhtri,tri_alloc,dhmap_hex,dhmap_tri, dhb_fixname,geom_dhb, geom_label_dhb)
+export(dhbin,dhtri,tri_alloc,dhmap_hex,dhmap_tri, dhb_fixname,geom_dhb, geom_label_dhb,
+       regionbin,regiontri)
