@@ -15,12 +15,12 @@ y=c(13,12,10,8,9,7,10,8,6,4,3,3,2,1,0)*sqrt(3)/2
 
 
 .regaliases<-list(
-    Northland=c("Northland","Northland region"
-    Auckland=c("Auckland","Auckland region")
-    Waikato = c("Waikato","Waikato region")
-    Taranaki=c("Taranaki","Taranaki region")
+    Northland=c("Northland","Northland region"),
+    Auckland=c("Auckland","Auckland region"),
+    Waikato = c("Waikato","Waikato region"),
+    Taranaki=c("Taranaki","Taranaki region"),
     "Bay of Plenty"=c("Bay of Plenty","Bay Of Plenty","Bay of Plenty region"),
-    "Manawatu-Wanganui"=c("Manawatu-Wanganui","Manawatu-Wanganui region")
+    "Manawatu-Wanganui"=c("Manawatu-Wanganui","Manawatu-Wanganui region"),
     Gisborne=c("Gisborne","Gisborne region"),
     "Hawke's Bay"=c("Hawke's Bay","Hawkes Bay","Hawke's Bay region"),
     Wellington=c("Wellington","Wellington region"),
