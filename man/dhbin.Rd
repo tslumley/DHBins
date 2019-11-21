@@ -16,9 +16,9 @@ legend_opts = NULL, border = NULL, short = FALSE,cex=1)
 dhtri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
  short=FALSE,cex=1)
 regionbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
-legend_opts = NULL, border = NULL, short = FALSE,cex=1)
+legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE, cex=1)
 regiontri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
- short=FALSE,cex=1)
+ short=FALSE, tasman=TRUE, cex=1)
  
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,6 +45,7 @@ a list with arguments to \code{graphics::legend}, not including \code{x} and \co
   \item{short}{
 If \code{TRUE}, label each hexagon with a 1-3 character short abbreviation rather than the full name. Especially useful for faceting.
 }
+\item{tasman}{The Tasman District and Nelson City are considered as separate regions in many contexts, but as forming the Nelson Region in some contexts. Use \code{tasman=FALSE} when they are combined}
 \item{cex}{
 character expansion factor
 }
@@ -91,5 +92,16 @@ for(i in 1:6){
 }
 par(opar)
 
-regionbin(hex_colours=rgb(colorRamp(c("blue", "white","red"))(z1),max=255),border=1,cex=0.7)
+
+data(region_ethnicity)
+cols<-tri_alloc(as.matrix(region_ethnicity[,-1]),
+	colours=hcl.colors(5,"Set2"),names=region_ethnicity$Area)
+
+regiontri(tri_colours=cols,text_colour="white",
+	legend_opts=list(fill=hcl.colors(5,"Set2"),
+			 title="Ethnicity",
+			 legend=names(region_ethnicity)[2:6]))
+title(main="New Zealand regions")
+
+
 }

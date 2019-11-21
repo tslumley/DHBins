@@ -1,6 +1,20 @@
 
 regions<-data.frame(
 printname=c("Northland","Auckland","Waikato", "Taranaki",  "Bay of\nPlenty","Manawatu-\nWanganui",
+            "Gisborne","Hawke's\nBay","Wellington", "Nelson",
+            "Marlborough","Tasman","Canterbury","West Coast","Otago",
+            "Southland"),
+keyname=c("Northland","Auckland","Waikato", "Taranaki",  "Bay of Plenty","Manawatu-Wanganui",
+            "Gisborne","Hawke's Bay","Wellington", "Nelson",
+            "Marlborough","Tasman","Canterbury","West Coast","Otago",
+            "Southland"),
+shortname=c("N","A","W","T","BoP","M-W","G","HB","W","N","M","T","C","WC","O","S"),
+x=(1+c(1,2,2,2,3,3,4,4,4,  2,2,1,1,0,0,-1))*(1.5),
+y=(1+c(13,12,10,8,9,7,10,8,6, 4,2,3,1,2,-0,-1))*sqrt(3)/2
+)
+
+regions_no_tasman<-data.frame(
+printname=c("Northland","Auckland","Waikato", "Taranaki",  "Bay of\nPlenty","Manawatu-\nWanganui",
             "Gisborne","Hawke's\nBay","Wellington",
             "Nelson","Marlborough","West Coast","Canterbury","Otago",
             "Southland"),
@@ -9,8 +23,8 @@ keyname=c("Northland","Auckland","Waikato", "Taranaki",  "Bay of Plenty","Manawa
             "Nelson","Marlborough","West Coast","Canterbury","Otago",
             "Southland"),
 shortname=c("N","A","W","T","BoP","M-W","G","HB","W","N","M","WC","C","O","S"),
-x=c(1,2,2,2,3,3,4,4,4,2,3,1,2,1,0)*(1.5),
-y=c(13,12,10,8,9,7,10,8,6,4,3,3,2,1,0)*sqrt(3)/2
+x=c(1,2,2,2,3,3,4,4,4, 2,3,1,2,1,0)*(1.5),
+y=c(13,12,10,8,9,7,10,8,6, 4,3,3,2,1,0)*sqrt(3)/2
 )
 
 
@@ -21,11 +35,12 @@ y=c(13,12,10,8,9,7,10,8,6,4,3,3,2,1,0)*sqrt(3)/2
     Taranaki=c("Taranaki","Taranaki region"),
     "Bay of Plenty"=c("Bay of Plenty","Bay Of Plenty","Bay of Plenty region"),
     "Manawatu-Wanganui"=c("Manawatu-Wanganui","Manawatu-Wanganui region"),
-    Gisborne=c("Gisborne","Gisborne region"),
+    Gisborne=c("Gisborne","Gisborne region","Gisborne district"),
     "Hawke's Bay"=c("Hawke's Bay","Hawkes Bay","Hawke's Bay region"),
     Wellington=c("Wellington","Wellington region"),
-    Nelson=c("Nelson","Nelson region"),
-    Marlborough=c("Marlborough","Marlborough region"),
+    Nelson=c("Nelson","Nelson region","Nelson City","Nelson Tasman region","Nelson-Tasman region","Nelson Tasman","Nelson-Tasman"),
+    Tasman=c("Tasman","Tasman region","Tasman district"),
+    Marlborough=c("Marlborough","Marlborough region","Marlborough district"),
     "West Coast"=c("West Coast","West Coast region"),
     Canterbury=c("Canterbury","Canterbury region"),
     Otago=c("Otago","Otago region"),
@@ -39,7 +54,13 @@ regaliases<-data.frame(keyname=rep(names(.regaliases),sapply(.regaliases,length)
 
 
 regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
-                    text_colour="black",legend_opts=NULL,border=NULL,short=FALSE,cex=0.7){
+                    text_colour="black",legend_opts=NULL,border=NULL,short=FALSE,tasman=TRUE,cex=0.7){
+
+    if(tasman){
+        regions<-regions
+    } else {
+        regions<-regions_no_tasman
+        }
 	if(is.null(radii)){
 		radii<-rep(0.95,nrow(regions))
 	}
@@ -48,13 +69,13 @@ regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
         if(is.null(region_names)) region_names<-names(radii)
         if (is.null(region_names)) region_names<-names(hex_colours)
 	if (!is.null(region_names)){
-		idx<-region_lookup(region_names)
+		idx<-region_lookup(region_names, regions)
 		hex_colours<-hex_colours[idx]
                 radii<-radii[idx]
 	}
 
         has.legend<-!is.null(legend_opts)
-	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7 ),ylim=c(-1,12),axes=FALSE,xlab="",ylab=""))
+	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7+tasman),ylim=c(-1,12+tasman),axes=FALSE,xlab="",ylab=""))
 	with(regions,hexes(x,y,radii,cols=hex_colours,flat=TRUE,border=border))
 	if (short)
 	  with(regions, text(x,y,shortname,cex=cex,col=text_colour))
@@ -65,8 +86,13 @@ regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
 	}
 }
 
-regiontri<-function(radii=NULL,tri_colours,region_names=NULL,text_colour="black",legend_opts=NULL,short=FALSE,cex=0.7){
-	if(is.null(radii)){
+regiontri<-function(radii=NULL,tri_colours,region_names=NULL,text_colour="black",legend_opts=NULL,short=FALSE,tasman=TRUE,cex=0.7){
+        if(tasman){
+            regions<-regions
+        } else {
+            regions<-regions_no_tasman
+        }
+        if(is.null(radii)){
 		radii<-rep(0.95,nrow(regions))
 	}
 	if( max(radii)>1) radii<-0.95*radii/max(radii)
@@ -74,12 +100,12 @@ regiontri<-function(radii=NULL,tri_colours,region_names=NULL,text_colour="black"
         if(is.null(region_names)) region_names<-names(radii)
         if (is.null(region_names)) region_names<-rownames(tri_colours)
 	if (!is.null(region_names)){
-		idx<-region_lookup(region_names)
+		idx<-region_lookup(region_names,regions)
 		tri_colours<-tri_colours[idx,]
                 radii<-radii[idx]
 	}
          has.legend<-!is.null(legend_opts)
-	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7),ylim=c(-1,12),axes=FALSE,xlab="",ylab=""))
+	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7+tasman),ylim=c(-1,12+tasman),axes=FALSE,xlab="",ylab=""))
 	with(regions,triangles(x,y,radii,cols=tri_colours,flat=TRUE))
 	if (short)
 	  with(regions, text(x,y,shortname,cex=cex,col=text_colour))
@@ -91,9 +117,9 @@ regiontri<-function(radii=NULL,tri_colours,region_names=NULL,text_colour="black"
 }
 
 
-region_lookup<-function(names){
+region_lookup<-function(names,regions){
   canonical_name<-region_fixname(names)
-  idx2<-match(dhbs$keyname,canonical_name)
+  idx2<-match(regions$keyname,canonical_name)
   idx2
 }
 
