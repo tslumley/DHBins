@@ -70,7 +70,7 @@ geom_dhb <- function(mapping = NULL, data = NULL,
     else b
 }
 
-GeomDHBmap <- ggproto("GeomMap", GeomPolygon,
+GeomDHBmap <- ggproto("GeomDHBmap", GeomPolygon,
                         default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
                                           alpha = NA, subgroup = NULL, radius=0.95),
   draw_panel = function(data, panel_params, coord, map) {
@@ -115,4 +115,95 @@ GeomDHBmap <- ggproto("GeomMap", GeomPolygon,
   },
 
   required_aes = c("map_id")
+)
+
+
+
+
+geom_dhbtri <- function(mapping = NULL, data = NULL,
+                      stat = "identity", 
+                     ...,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE,coord=TRUE) {
+
+
+
+    
+    rval<-list( 
+        layer(
+            data = data,
+            mapping = mapping,
+            stat = stat,
+            geom = GeomDHBtri,
+            position = PositionIdentity,
+            show.legend = show.legend,
+            inherit.aes = inherit.aes,
+            params = list(
+                na.rm = na.rm,
+                ...
+            )),
+
+        theme(axis.title.x=element_blank(),
+                  axis.text.x=element_blank(), axis.title.y=element_blank(),
+                  axis.text.y=element_blank(),panel.grid=element_blank())
+    )
+    if(coord){
+        rval<-c(rval,
+            coord_fixed(),
+            expand_limits(dhmap_hex()))
+        }
+     rval
+
+}
+
+
+## Actually, we probably need to override draw_group as in
+## https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html
+GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
+                        default_aes = aes(colour = "NA",  size = 0.5, linetype = 1,
+                                          alpha = NA, subgroup = NULL, radius=0.95),
+  draw_panel = function(data, panel_params, coord, map) {
+
+      map_id<-with(data, paste(map_id,class_id,sep="_"))
+      hex_x <- hex_point
+      hex_y <- hex_flat
+      ## need to reorder sizes to match order
+      radius<-data$radius
+      if (max(radius)>1)
+          radius<-0.95*radius/max(radius)
+      
+      idx<-dhb_lookuptri(map_id)
+      radius<-radius[idx]
+	
+    map<-na.omit(
+        data.frame(
+            x=as.vector(t(outer(radius, hex_x) + dhbs$x)),
+            y= as.vector(t(outer(radius, hex_y) + dhbs$y)),
+            id =rep(dhbs$keyname,each=5)
+        )
+    )
+    common <- intersect(data$map_id, map$id)
+    data <- data[data$map_id %in% common, , drop = FALSE]
+    map <- map[map$id %in% common, , drop = FALSE]
+
+    # Munch, then set up id variable for polygonGrob -
+    # must be sequential integers
+    coords <- coord_munch(coord, map, panel_params)
+    coords$group <- coords$group %||% coords$id
+    grob_id <- match(coords$group, unique(coords$group))
+
+    # Align data with map
+    data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
+    data <- data[data_rows, , drop = FALSE]
+
+    grid::polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
+      gp = grid::gpar(
+        col = data$colour, fill = alpha(data$fill, data$alpha),
+        lwd = data$size * .pt
+      )
+    )
+  },
+
+  required_aes = c("map_id","class_id","fill")
 )
