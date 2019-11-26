@@ -10,6 +10,7 @@ Converts popular variants of the DHB or region names into the versions used as k
 }
 \usage{
 dhb_fixname(names)
+region_fixname(names)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

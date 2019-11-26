@@ -1,5 +1,11 @@
 \name{geom_dhb}
 \alias{geom_dhb}
+\alias{geom_label_dhb}
+\alias{geom_dhbtri}
+\alias{geom_region}
+\alias{geom_label_region}
+\alias{geom_regiontri}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Geom for DHB hexmap
@@ -90,10 +96,6 @@ tri_data<-data.frame(Region=rep(rownames(tri_eth),6), ethnicity=as.vector(tri_et
 
 ggplot(tri_data)+
 	geom_regiontri(aes(map_id=Region,class_id=tri_id, fill=ethnicity))+
-	geom_label_region(colour="Black", short=TRUE,cex=3)+
-	scale_fill_brewer("Set2")
-							
-
-
+	geom_label_region(colour="Black", short=TRUE,cex=3)
 
 }
