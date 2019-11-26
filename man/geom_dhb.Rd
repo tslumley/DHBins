@@ -71,6 +71,7 @@ tris<-tri_alloc(dhb_cars[,-1], c("0","1","2","3+"), names=dhb_cars$dhb )
 tri_data<-data.frame(DHB=rep(rownames(tris),6), cars=as.vector(tris), tri_id=rep(1:6,each=nrow(tris)))
 
 ggplot(tri_data)+
-	geom_dhbtri(aes(map_id=DHB,class_id=tri_id, fill=cars))+
-	scale_fill_viridis_d()
+	geom_dhbtri(aes(map_id=DHB,class_id=tri_id, fill=cars),alpha=0.5)+
+	scale_fill_viridis_d()+
+	geom_label_dhb(short=TRUE)
 }
