@@ -47,8 +47,8 @@ hexes<-function (center_x, center_y, radii, cols, border = NULL, asp = 1, flat=F
 }
 
 
-tri_alloc<-function(countmatrix,colours,names=rownames(countmatrix)){
-	m<-matrix(colours[apply(countmatrix,1,sl)],
+tri_alloc<-function(countmatrix,colours,classes=colours,names=rownames(countmatrix)){
+	m<-matrix(classes[apply(countmatrix,1,sl)],
 		byrow=TRUE,ncol=6)
 	if(!is.null(names)) rownames(m)<-names
 	m	

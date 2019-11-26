@@ -1,31 +1,17 @@
-geom_dhb_old<-function(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE){
-	map<-dhmap_hex()
-	list(
-            geom_map(mapping, data, ..., na.rm=na.rm, show.legend=show.legend, inherit.aes=inherit.aes,map=map),
-            expand_limits(map),
-            coord_fixed(),
-            theme(axis.title.x=element_blank(),
-                  axis.text.x=element_blank(), axis.title.y=element_blank(),
-                  axis.text.y=element_blank(),panel.grid=element_blank())
-	)
-	
-}
-
-
-geom_label_dhb<-function(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,short=FALSE){
+geom_label_region<-function(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,short=FALSE){
 	d<-data.frame(
-		x=dhbs$x,
-		y=dhbs$y,
-		dhb_labels=if(short) 
-					dhbs$shortname 
+		x=regions$x,
+		y=regions$y,
+		region_labels=if(short) 
+					regions$shortname 
 				else 
-					dhbs$printname
+					regions$printname
 	)
-	geom_text(data=d, aes(x,y,label=dhb_labels),...)
+	geom_text(data=d, aes(x,y,label=region_labels),...)
 }
 
 
-geom_dhb <- function(mapping = NULL, data = NULL,
+geom_region <- function(mapping = NULL, data = NULL,
                       stat = "identity", 
                      ...,
                      na.rm = FALSE,
@@ -40,7 +26,7 @@ geom_dhb <- function(mapping = NULL, data = NULL,
             data = data,
             mapping = mapping,
             stat = stat,
-            geom = GeomDHBmap,
+            geom = GeomRegionMap,
             position = PositionIdentity,
             show.legend = show.legend,
             inherit.aes = inherit.aes,
@@ -56,7 +42,7 @@ geom_dhb <- function(mapping = NULL, data = NULL,
     if(coord){
         rval<-c(rval,
             coord_fixed(),
-            expand_limits(dhmap_hex()))
+            expand_limits(regmap_hex()))
         }
      rval
 
@@ -70,7 +56,7 @@ geom_dhb <- function(mapping = NULL, data = NULL,
     else b
 }
 
-GeomDHBmap <- ggproto("GeomDHBmap", GeomPolygon,
+GeomRegionMap <- ggproto("GeomRegionMap", GeomPolygon,
                         default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
                                           alpha = NA, subgroup = NULL, radius=0.95),
   draw_panel = function(data, panel_params, coord, map) {
@@ -81,16 +67,16 @@ GeomDHBmap <- ggproto("GeomDHBmap", GeomPolygon,
       radius<-data$radius
       if (max(radius)>1)
           radius<-0.95*radius/max(radius)
-      data$map_id<-dhb_fixname(data$map_id)
-      
-      idx<-dhb_lookup(data$map_id)
+      browser()
+      idx<-region_lookup(data$map_id,regions)
       radius<-radius[idx]
+      data$map_id<-region_fixname(data$map_id)
 	
     map<-na.omit(
         data.frame(
-            x=as.vector(t(outer(radius, hex_x) + dhbs$x)),
-            y= as.vector(t(outer(radius, hex_y) + dhbs$y)),
-            id =rep(dhbs$keyname,each=8)
+            x=as.vector(t(outer(radius, hex_x) + regions$x)),
+            y= as.vector(t(outer(radius, hex_y) + regions$y)),
+            id =rep(regions$keyname,each=8)
         )
     )
     common <- intersect(data$map_id, map$id)
@@ -121,7 +107,7 @@ GeomDHBmap <- ggproto("GeomDHBmap", GeomPolygon,
 
 
 
-geom_dhbtri <- function(mapping = NULL, data = NULL,
+geom_regiontri <- function(mapping = NULL, data = NULL,
                       stat = "identity", 
                      ...,
                      na.rm = FALSE,
@@ -136,7 +122,7 @@ geom_dhbtri <- function(mapping = NULL, data = NULL,
             data = data,
             mapping = mapping,
             stat = stat,
-            geom = GeomDHBtri,
+            geom = GeomRegionTri,
             position = PositionIdentity,
             show.legend = show.legend,
             inherit.aes = inherit.aes,
@@ -152,7 +138,7 @@ geom_dhbtri <- function(mapping = NULL, data = NULL,
     if(coord){
         rval<-c(rval,
             coord_fixed(),
-            expand_limits(dhmap_hex()))
+            expand_limits(regmap_hex()))
         }
      rval
 
@@ -161,7 +147,7 @@ geom_dhbtri <- function(mapping = NULL, data = NULL,
 
 ## Actually, we probably need to override draw_group as in
 ## https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html
-GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
+GeomRegionTri <- ggproto("GeomRegionTri", GeomPolygon,
                         default_aes = aes(colour = "NA",  size = 0.5, linetype = 1,
                                           alpha = NA, subgroup = NULL, radius=0.95),
   draw_panel = function(data, panel_params, coord, map) {
@@ -171,17 +157,17 @@ GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
       radius<-data$radius
       if (max(radius)>1)
           radius<-0.95*radius/max(radius)
-
-      data$map_id<-dhb_fixname(data$map_id)
-      idx<-with(data, dhb_lookuptri(map_id,class_id))
+      
+      idx<-with(data, region_lookuptri(map_id,class_id))
       radius<-radius[idx]
+      data$map_id<-region_fixname(data$map_id)
       data$full_id<-with(data,paste(map_id,as.numeric(as.factor(class_id)),sep="_"))
 	
     map<-na.omit(
         data.frame(
-            x=as.vector(t(outer(radius, tri_x) + dhbs$x)),
-            y= as.vector(t(outer(radius, tri_y) + dhbs$y)),
-            id= paste(rep(dhbs$keyname,each=6*4), rep(rep(1:6,nrow(dhbs)),each=4), sep="_")
+            x=as.vector(t(outer(radius, tri_x) + regions$x)),
+            y= as.vector(t(outer(radius, tri_y) + regions$y)),
+            id= paste(rep(regions$keyname,each=6*4), rep(rep(1:6,nrow(regions)),each=4), sep="_")
         )
     )
     common <- intersect(data$full_id, map$id)

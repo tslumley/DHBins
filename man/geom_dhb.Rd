@@ -11,11 +11,14 @@ A \code{ggplot2} geom for the District Health Board hexmap: \code{geom_dhb} wrap
 geom_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 geom_label_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 geom_dhbtri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_label_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_regiontri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{mapping}{
-Set of aesthetic mappings created by \code{aes()} or \code{aes_()}. For \code{geom_dhb} you must specify \code{map_id} with the unit names, and for \code{geom_dhbtri} additionally specify \code{class_id} giving the order of triangles within a hex.  The \code{radius} aesthetic controls the size of the hexes}
+Set of aesthetic mappings created by \code{aes()} or \code{aes_()}. For \code{geom_dhb}  and \code{geom_region} you must specify \code{map_id} with the unit names, and for \code{geom_dhbtri} and \code{geom_regiontri} additionally specify \code{class_id} giving the order of triangles within a hex.  The \code{radius} aesthetic controls the size of the hexes}
   \item{data}{
 The data to be displayed in this layer. Usually inherited from the plot data}
   \item{\dots}{
@@ -74,4 +77,23 @@ ggplot(tri_data)+
 	geom_dhbtri(aes(map_id=DHB,class_id=tri_id, fill=cars),alpha=0.5)+
 	scale_fill_viridis_d()+
 	geom_label_dhb(short=TRUE)
+
+
+
+data(region_ethnicity)
+tri_eth<-tri_alloc(as.matrix(region_ethnicity[,-1]),
+	classes=c("Asian","Euro","Maori","MELAA","Pacific"),
+	names=region_ethnicity$Area)
+
+
+tri_data<-data.frame(Region=rep(rownames(tri_eth),6), ethnicity=as.vector(tri_eth), tri_id=rep(1:6,each=nrow(tri_eth)))
+
+ggplot(tri_data)+
+	geom_regiontri(aes(map_id=Region,class_id=tri_id, fill=ethnicity))+
+	geom_label_region(colour="Black", short=TRUE,cex=3)+
+	scale_fill_brewer("Set2")
+							
+
+
+
 }

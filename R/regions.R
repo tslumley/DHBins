@@ -134,3 +134,26 @@ region_fixname<-function(names){
 
 
         
+
+region_lookuptri<-function(names, tri_id){
+    canonical_name<-region_fixname(names)
+    tri_name<-paste(rep(regions$keyname,each=6),rep(1:6,nrow(regions)),sep="_")
+    canonical_tri<-paste(canonical_name, as.numeric(as.factor(tri_id)),sep="_")
+    idx2<-match(tri_name,canonical_tri)
+    idx2
+}
+
+
+regmap_hex<-function(){
+    size=rep(0.95,nrow(regions))
+    hex_x <- hex_point
+    hex_y <- hex_flat
+    
+    na.omit(
+        data.frame(
+            x=as.vector(t(outer(size, hex_x) + regions$x)),
+            y= as.vector(t(outer(size, hex_y) + regions$y)),
+            id =rep(regions$keyname,each=8)
+        )
+    )
+}

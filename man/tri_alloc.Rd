@@ -15,8 +15,8 @@ tri_alloc(countmatrix, colours, names = rownames(countmatrix))
   \item{countmatrix}{
 A matrix of counts with a column for each class and a row for each hexagon. 
 }
-  \item{colours}{
-A vector of colour names, with one for each class
+  \item{colours,classes}{
+A vector of class names, or colour names with one for each class
 }
   \item{names}{
 A vector of names, for each row of \code{countmatrix}, to be applied to the output
@@ -26,7 +26,7 @@ A vector of names, for each row of \code{countmatrix}, to be applied to the outp
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-Matrix of colour names, with six columns.  The rownames will be set to \code{names} if provided.
+Matrix of class names, with six columns.  The rownames will be set to \code{names} if provided.
 }
 
 \examples{
