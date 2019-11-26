@@ -10,11 +10,12 @@ A \code{ggplot2} geom for the District Health Board hexmap: \code{geom_dhb} wrap
 \usage{
 geom_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 geom_label_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_dhbtri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{mapping}{
-Set of aesthetic mappings created by \code{aes()} or \code{aes_()}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level of the plot.  The \code{radius} aesthetic controls the size of the hexes}
+Set of aesthetic mappings created by \code{aes()} or \code{aes_()}. For \code{geom_dhb} you must specify \code{map_id} with the unit names, and for \code{geom_dhbtri} additionally specify \code{class_id} giving the order of triangles within a hex.  The \code{radius} aesthetic controls the size of the hexes}
   \item{data}{
 The data to be displayed in this layer. Usually inherited from the plot data}
   \item{\dots}{
@@ -63,4 +64,13 @@ ggplot(immune_long) +
    	scale_fill_viridis_d(drop=FALSE)+
    	geom_label_dhb(short=TRUE,colour="black",cex=3)+
    	facet_wrap(~ethnicity)
+
+
+data(dhb_cars)
+tris<-tri_alloc(dhb_cars[,-1], c("0","1","2","3+"), names=dhb_cars$dhb )
+tri_data<-data.frame(DHB=rep(rownames(tris),6), cars=as.vector(tris), tri_id=rep(1:6,each=nrow(tris)))
+
+ggplot(tri_data)+
+	geom_dhbtri(aes(map_id=DHB,class_id=tri_id, fill=cars))+
+	scale_fill_viridis_d()
 }

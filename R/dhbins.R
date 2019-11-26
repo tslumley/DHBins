@@ -152,10 +152,11 @@ dhb_lookup<-function(names){
   idx2
 }
 
-dhb_lookuptri<-function(names){
+dhb_lookuptri<-function(names, tri_id){
     canonical_name<-dhb_fixname(names)
     tri_name<-paste(rep(dhbs$keyname,each=6),rep(1:6,nrow(dhbs)),sep="_")
-    idx2<-match(tri_name,canonical_name)
+    canonical_tri<-paste(canonical_name, as.numeric(as.factor(tri_id)),sep="_")
+    idx2<-match(tri_name,canonical_tri)
     idx2
 }
 

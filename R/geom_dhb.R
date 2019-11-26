@@ -164,27 +164,26 @@ GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
                         default_aes = aes(colour = "NA",  size = 0.5, linetype = 1,
                                           alpha = NA, subgroup = NULL, radius=0.95),
   draw_panel = function(data, panel_params, coord, map) {
-
-      map_id<-with(data, paste(map_id,class_id,sep="_"))
-      hex_x <- hex_point
-      hex_y <- hex_flat
+      tri_x <- tri_point
+      tri_y <- tri_flat
       ## need to reorder sizes to match order
       radius<-data$radius
       if (max(radius)>1)
           radius<-0.95*radius/max(radius)
       
-      idx<-dhb_lookuptri(map_id)
+      idx<-with(data, dhb_lookuptri(map_id,class_id))
       radius<-radius[idx]
+      data$full_id<-with(data,paste(map_id,as.numeric(as.factor(class_id)),sep="_"))
 	
     map<-na.omit(
         data.frame(
-            x=as.vector(t(outer(radius, hex_x) + dhbs$x)),
-            y= as.vector(t(outer(radius, hex_y) + dhbs$y)),
-            id =rep(dhbs$keyname,each=5)
+            x=as.vector(t(outer(radius, tri_x) + dhbs$x)),
+            y= as.vector(t(outer(radius, tri_y) + dhbs$y)),
+            id= paste(rep(dhbs$keyname,each=6*4), rep(rep(1:6,nrow(dhbs)),each=4), sep="_")
         )
     )
-    common <- intersect(data$map_id, map$id)
-    data <- data[data$map_id %in% common, , drop = FALSE]
+    common <- intersect(data$full_id, map$id)
+    data <- data[data$full_id %in% common, , drop = FALSE]
     map <- map[map$id %in% common, , drop = FALSE]
 
     # Munch, then set up id variable for polygonGrob -
@@ -194,7 +193,7 @@ GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
     grob_id <- match(coords$group, unique(coords$group))
 
     # Align data with map
-    data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
+    data_rows <- match(coords$id[!duplicated(grob_id)], data$full_id)
     data <- data[data_rows, , drop = FALSE]
 
     grid::polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
