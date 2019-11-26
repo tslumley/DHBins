@@ -67,7 +67,6 @@ GeomRegionMap <- ggproto("GeomRegionMap", GeomPolygon,
       radius<-data$radius
       if (max(radius)>1)
           radius<-0.95*radius/max(radius)
-      browser()
       idx<-region_lookup(data$map_id,regions)
       radius<-radius[idx]
       data$map_id<-region_fixname(data$map_id)
