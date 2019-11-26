@@ -1,5 +1,5 @@
 # DHBins
-Hexagonal maps for NZ District Health Boards
+Hexagonal maps for NZ District Health Boards and Regions
 
 The easiest way to install the package in R is to use the `remotes` package from CRAN
 
