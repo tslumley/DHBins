@@ -75,9 +75,9 @@ sl<-function (counts)
 
 
 dhbs<-data.frame(
-printname=c("Northland","Waitemata","Counties \nManukau","Taranaki","Auckland",
+printname=c("Northland","Waitemat\u0101","Counties \nManukau","Taranaki","Auckland",
             "Waikato","Whanganui","Capital\n and Coast", "Bay of\nPlenty","Lakes",
-            "Midcentral","Hutt\nValley","Tairawhiti","Hawke's \nBay","Wairarapa",
+            "Midcentral","Hutt\nValley","Tair\u01010whiti","Hawke's \nBay","Wairarapa",
             "Nelson \nMarlborough","West Coast","Canterbury","South \nCanterbury",
             "Southern"),
 keyname=c("Northland","Waitemata","Counties Manukau","Taranaki","Auckland",
@@ -121,7 +121,7 @@ dhmap_tri<-function(){
 
 
 .aliases<-list(Northland=c("Northland","NDHB","Northland DHB"),
-              Waitemata=c("Waitemata","Waitematā","Waitemata DHB"),
+              Waitemata=c("Waitemata","Waitemat\u0101","Waitemata DHB"),
               "Counties Manukau"=c("Counties Manukau","Counties","CM Health","Counties Manukau DHB"),
               Taranaki=c("TDHB","Taranaki","Taranaki DHB"),
               Auckland=c("ADHB","Auckland","Auckland DHB"),
@@ -132,7 +132,7 @@ dhmap_tri<-function(){
               Lakes=c("Lakes","Lakes DHB"),
               Midcentral=c("Midcentral","MidCentral","MDHB","Mid Central DHB","MidCentral DHB"),
               Hutt = c("Hutt","Hutt Valley","Hutt DHB"),
-              Tairawhiti=c("Tairawhiti","Tairāwhiti","Tairawhiti DHB"),
+              Tairawhiti=c("Tairawhiti","Tair\u0101whiti","Tairawhiti DHB","Hauora Tair\u0101whiti"),
               "Hawke's Bay"=c("Hawke's Bay","Hawkes Bay","HBDHB","Hawkes Bay DHB"),
               Wairarapa=c("Wairarapa","Wairarapa DHB"),
               "Nelson Marlborough"=c("Nelson Marlborough","Nelson-Marlborough","NMDHB","Nelson Marlborough DHB"),

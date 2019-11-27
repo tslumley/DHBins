@@ -126,6 +126,7 @@ region_lookup<-function(names,regions){
 
 
 region_fixname<-function(names){
+    names<-sub("Region","region",names)
   idx<-match(names, regaliases$alias)
   if(any(is.na(idx)))
     warning(paste("could not match",paste(names[is.na(idx)],collapse=",")))
