@@ -8,7 +8,7 @@ Allocate triangles within hexagons
 This implements the Webster/Sainte-Laguë method to allocate six triangles in each hexagon, in proportion to counts in two or more classes. 
 }
 \usage{
-tri_alloc(countmatrix, colours, names = rownames(countmatrix))
+tri_alloc(countmatrix, colours, classes=colours, names = rownames(countmatrix))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,9 +22,7 @@ A vector of class names, or colour names with one for each class
 A vector of names, for each row of \code{countmatrix}, to be applied to the output
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 Matrix of class names, with six columns.  The rownames will be set to \code{names} if provided.
 }
@@ -32,5 +30,6 @@ Matrix of class names, with six columns.  The rownames will be set to \code{name
 \examples{
 data(dhb_cars)
 tri_alloc(dhb_cars[,-1], c("green","gold","orange","goldenrod"), names=dhb_cars$dhb )
+tri_alloc(dhb_cars[,-1], c("0","1","2","3+"), names=dhb_cars$dhb )
 
 }

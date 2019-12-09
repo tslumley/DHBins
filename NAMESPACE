@@ -1,4 +1,6 @@
 import(graphics,grDevices,grid)
+import(ggplot2)
+importFrom("stats", "na.omit")
 export(dhbin,dhtri,tri_alloc, dhb_fixname,
        geom_dhb, geom_label_dhb,geom_dhbtri,
        regionbin,regiontri,region_fixname, geom_region,

@@ -75,9 +75,9 @@ sl<-function (counts)
 
 
 dhbs<-data.frame(
-printname=c("Northland","Waitemat\u0101","Counties \nManukau","Taranaki","Auckland",
+printname=c("Northland","Waitemata","Counties \nManukau","Taranaki","Auckland",
             "Waikato","Whanganui","Capital\n and Coast", "Bay of\nPlenty","Lakes",
-            "Midcentral","Hutt\nValley","Tair\u01010whiti","Hawke's \nBay","Wairarapa",
+            "Midcentral","Hutt\nValley","Tairawhiti","Hawke's \nBay","Wairarapa",
             "Nelson \nMarlborough","West Coast","Canterbury","South \nCanterbury",
             "Southern"),
 keyname=c("Northland","Waitemata","Counties Manukau","Taranaki","Auckland",

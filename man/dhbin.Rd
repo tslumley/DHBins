@@ -12,13 +12,13 @@ The 20 District Health Boards are the main administrative and funding units of t
 }
 \usage{
 dhbin(radius = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
-legend_opts = NULL, border = NULL, short = FALSE,cex=1)
+legend_opts = NULL, border = NULL, short = FALSE,cex=0.8)
 dhtri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
- short=FALSE,cex=1)
-regionbin(radius = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
-legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE, cex=1)
-regiontri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
- short=FALSE, tasman=TRUE, cex=1)
+ short=FALSE,cex=0.8)
+regionbin(radius = NULL, hex_colours = "lightskyblue", region_names=NULL, text_colour = "black",
+legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE, cex=0.7)
+regiontri(radius = NULL, tri_colours, region_names=NULL, text_colour = "black", legend_opts = NULL,
+ short=FALSE, tasman=TRUE, cex=0.7)
  
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,9 +30,9 @@ Vector of radius measurements for the coloured part of each hexagon, with 1 as a
 Vector of colours as names or hashtag colours.  If it has names, they are matched to the DHB names or common alternative names.
 }
 \item{tri_colours}{
-20 x 6 matrix of colours for the six triangles in each hexagon.  If it has row names, they are matched to the DHB names or common alternative names.
+6-column matrix of colours for the six triangles in each hexagon.  If it has row names, they are matched to the DHB names or common alternative names.
 }
-\item{DHB_names}{Vector of DHB names. If \code{NULL}, the function will look for this as the names of \code{radius} then as the names of \code{hex_colours} or the rownames of \code{tri_colours}}
+\item{DHB_names,region_names}{Vector of DHB names or region names. If \code{NULL}, the function will look for this as the names of \code{radius} then as the names of \code{hex_colours} or the rownames of \code{tri_colours}}
   \item{text_colour}{
 Colour for the label on all the hexagons.
 }

@@ -53,7 +53,7 @@ regaliases<-data.frame(keyname=rep(names(.regaliases),sapply(.regaliases,length)
                     stringsAsFactors =FALSE)
 
 
-regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
+regionbin<-function(radius=NULL,hex_colours="lightskyblue",region_names=NULL,
                     text_colour="black",legend_opts=NULL,border=NULL,short=FALSE,tasman=TRUE,cex=0.7){
 
     if(tasman){
@@ -61,22 +61,22 @@ regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
     } else {
         regions<-regions_no_tasman
         }
-	if(is.null(radii)){
-		radii<-rep(0.95,nrow(regions))
+	if(is.null(radius)){
+		radius<-rep(0.95,nrow(regions))
 	}
-	if( max(radii)>1) radii<-0.95*radii/max(radii)
+	if( max(radius)>1) radius<-0.95*radius/max(radius)
         if(length(hex_colours)<20) hex_colours<-rep(hex_colours,length.out=nrow(regions))
-        if(is.null(region_names)) region_names<-names(radii)
+        if(is.null(region_names)) region_names<-names(radius)
         if (is.null(region_names)) region_names<-names(hex_colours)
 	if (!is.null(region_names)){
 		idx<-region_lookup(region_names, regions)
 		hex_colours<-hex_colours[idx]
-                radii<-radii[idx]
+                radius<-radius[idx]
 	}
 
         has.legend<-!is.null(legend_opts)
 	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7+tasman),ylim=c(-1,12+tasman),axes=FALSE,xlab="",ylab=""))
-	with(regions,hexes(x,y,radii,cols=hex_colours,flat=TRUE,border=border))
+	with(regions,hexes(x,y,radius,cols=hex_colours,flat=TRUE,border=border))
 	if (short)
 	  with(regions, text(x,y,shortname,cex=cex,col=text_colour))
 	else 
@@ -86,27 +86,27 @@ regionbin<-function(radii=NULL,hex_colours="lightskyblue",region_names=NULL,
 	}
 }
 
-regiontri<-function(radii=NULL,tri_colours,region_names=NULL,text_colour="black",legend_opts=NULL,short=FALSE,tasman=TRUE,cex=0.7){
+regiontri<-function(radius=NULL,tri_colours,region_names=NULL,text_colour="black",legend_opts=NULL,short=FALSE,tasman=TRUE,cex=0.7){
         if(tasman){
             regions<-regions
         } else {
             regions<-regions_no_tasman
         }
-        if(is.null(radii)){
-		radii<-rep(0.95,nrow(regions))
+        if(is.null(radius)){
+		radius<-rep(0.95,nrow(regions))
 	}
-	if( max(radii)>1) radii<-0.95*radii/max(radii)
+	if( max(radius)>1) radius<-0.95*radius/max(radius)
 
-        if(is.null(region_names)) region_names<-names(radii)
+        if(is.null(region_names)) region_names<-names(radius)
         if (is.null(region_names)) region_names<-rownames(tri_colours)
 	if (!is.null(region_names)){
 		idx<-region_lookup(region_names,regions)
 		tri_colours<-tri_colours[idx,]
-                radii<-radii[idx]
+                radius<-radius[idx]
 	}
          has.legend<-!is.null(legend_opts)
 	with(regions,plot(x,y,asp=TRUE,type="n",xlim=c(-2-2*has.legend,7+tasman),ylim=c(-1,12+tasman),axes=FALSE,xlab="",ylab=""))
-	with(regions,triangles(x,y,radii,cols=tri_colours,flat=TRUE))
+	with(regions,triangles(x,y,radius,cols=tri_colours,flat=TRUE))
 	if (short)
 	  with(regions, text(x,y,shortname,cex=cex,col=text_colour))
 	else 

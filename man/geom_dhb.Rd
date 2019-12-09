@@ -14,12 +14,12 @@ Geom for DHB hexmap
 A \code{ggplot2} geom for the District Health Board hexmap: \code{geom_dhb} wraps \code{geom_map} and \code{geom_label_dhb} wraps \code{geom_text}. 
 }
 \usage{
-geom_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_label_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
-geom_dhbtri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_label_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
-geom_regiontri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_dhb(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_label_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, short=FALSE)
+geom_dhbtri(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_region(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_label_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,short=FALSE)
+geom_regiontri(mapping = NULL, data = NULL,stat="identity", ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,7 @@ geom_regiontri(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA
 Set of aesthetic mappings created by \code{aes()} or \code{aes_()}. For \code{geom_dhb}  and \code{geom_region} you must specify \code{map_id} with the unit names, and for \code{geom_dhbtri} and \code{geom_regiontri} additionally specify \code{class_id} giving the order of triangles within a hex.  The \code{radius} aesthetic controls the size of the hexes}
   \item{data}{
 The data to be displayed in this layer. Usually inherited from the plot data}
+\item{stat}{The statistical transformation to use on the data for this layer, as a string.}
   \item{\dots}{
 Other arguments passed on to layer(), such as aesthetics, used to set an aesthetic to a fixed value, like \code{colour = "white"} or \code{cex = 3}. }
   \item{na.rm}{
@@ -39,6 +40,7 @@ logical. Should this layer be included in the legends? \code{NA}, the default, i
   \item{inherit.aes}{
   If \code{FALSE}, overrides the default aesthetics, rather than combining with them.}
   \item{coord}{If \code{TRUE}, set the aspect ratio and plot limits.  The main reason to have \code{coord=FALSE} is if you are stacking two \code{geom_dhb} layers }
+  \item{short}{If \code{TRUE}, use the `short' (mostly 1-character) abbreviations for DHB or region names}
 }
 
 \value{
