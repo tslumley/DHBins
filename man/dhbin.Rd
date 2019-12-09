@@ -11,19 +11,19 @@ Hexmaps of New Zealand Adminstrative Units
 The 20 District Health Boards are the main administrative and funding units of the NZ national health system. The Regions are the second-level government divisions . These functions draw stylised maps of the DHBs and regions, along the lines of "statebins" for the US states. The hexagon for each location can be coloured and sized to show numeric data, and it can also be split into six triangles to show proportion or composition data. 
 }
 \usage{
-dhbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
+dhbin(radius = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
 legend_opts = NULL, border = NULL, short = FALSE,cex=1)
-dhtri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
+dhtri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
  short=FALSE,cex=1)
-regionbin(radii = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
+regionbin(radius = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
 legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE, cex=1)
-regiontri(radii = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
+regiontri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
  short=FALSE, tasman=TRUE, cex=1)
  
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{radii}{
+  \item{radius{
 Vector of radius measurements for the coloured part of each hexagon, with 1 as a full hexagon. If any are greater than 1, the vector is scaled to have maximum value 0.95, which is also the default value for all hexagons.  If it has names, they are matched to the DHB names or common alternative names.
 }
   \item{hex_colours}{
@@ -32,7 +32,7 @@ Vector of colours as names or hashtag colours.  If it has names, they are matche
 \item{tri_colours}{
 20 x 6 matrix of colours for the six triangles in each hexagon.  If it has row names, they are matched to the DHB names or common alternative names.
 }
-\item{DHB_names}{Vector of DHB names. If \code{NULL}, the function will look for this as the names of \code{radii} then as the names of \code{hex_colours} or the rownames of \code{tri_colours}}
+\item{DHB_names}{Vector of DHB names. If \code{NULL}, the function will look for this as the names of \code{radius} then as the names of \code{hex_colours} or the rownames of \code{tri_colours}}
   \item{text_colour}{
 Colour for the label on all the hexagons.
 }
@@ -45,7 +45,7 @@ a list with arguments to \code{graphics::legend}, not including \code{x} and \co
   \item{short}{
 If \code{TRUE}, label each hexagon with a 1-3 character short abbreviation rather than the full name. Especially useful for faceting.
 }
-\item{tasman}{The Tasman District and Nelson City are considered as separate regions in many contexts, but as forming the Nelson Region in some contexts. Use \code{tasman=FALSE} when they are combined}
+\item{tasman}{The Tasman District and Nelson City are considered as separate regions in most contexts, but as forming the Nelson Region in some contexts. Use \code{tasman=FALSE} when they are combined}
 \item{cex}{
 character expansion factor
 }
@@ -74,7 +74,7 @@ dhtri(tri_colours=tris,
 
 households<-rowSums(dhb_cars[,-1])
 names(households)<-dhb_cars$dhb
-dhbin(radii=sqrt(households))
+dhbin(radius=sqrt(households))
 title(main="Number of households in private dwellings")
 
 
