@@ -23,7 +23,7 @@ regiontri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", leg
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{radius{
+  \item{radius}{
 Vector of radius measurements for the coloured part of each hexagon, with 1 as a full hexagon. If any are greater than 1, the vector is scaled to have maximum value 0.95, which is also the default value for all hexagons.  If it has names, they are matched to the DHB names or common alternative names.
 }
   \item{hex_colours}{
