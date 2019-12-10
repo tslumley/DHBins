@@ -12,13 +12,14 @@ The 20 District Health Boards are the main administrative and funding units of t
 }
 \usage{
 dhbin(radius = NULL, hex_colours = "lightskyblue", DHB_names=NULL, text_colour = "black",
-legend_opts = NULL, border = NULL, short = FALSE,cex=0.8)
-dhtri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black", legend_opts = NULL,
- short=FALSE,cex=0.8)
-regionbin(radius = NULL, hex_colours = "lightskyblue", region_names=NULL, text_colour = "black",
-legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE, cex=0.7)
-regiontri(radius = NULL, tri_colours, region_names=NULL, text_colour = "black", legend_opts = NULL,
- short=FALSE, tasman=TRUE, cex=0.7)
+ legend_opts = NULL, border = NULL, short = FALSE,cex=0.8)
+dhtri(radius = NULL, tri_colours, DHB_names=NULL, text_colour = "black",
+ legend_opts = NULL, short=FALSE,cex=0.8)
+regionbin(radius = NULL, hex_colours = "lightskyblue", region_names=NULL,
+ text_colour = "black", legend_opts = NULL, border = NULL, short = FALSE, tasman=TRUE,
+ cex=0.7)
+regiontri(radius = NULL, tri_colours, region_names=NULL, text_colour = "black",
+ legend_opts = NULL,short=FALSE, tasman=TRUE, cex=0.7)
  
 }
 %- maybe also 'usage' for other objects documented here.

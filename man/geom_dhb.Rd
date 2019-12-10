@@ -14,12 +14,18 @@ Geom for DHB hexmap
 A \code{ggplot2} geom for the District Health Board hexmap: \code{geom_dhb} wraps \code{geom_map} and \code{geom_label_dhb} wraps \code{geom_text}. 
 }
 \usage{
-geom_dhb(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_label_dhb(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, short=FALSE)
-geom_dhbtri(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_region(mapping = NULL, data = NULL, stat="identity",..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
-geom_label_region(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,short=FALSE)
-geom_regiontri(mapping = NULL, data = NULL,stat="identity", ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_dhb(mapping = NULL, data = NULL, stat="identity",...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_label_dhb(mapping = NULL, data = NULL, ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, short=FALSE)
+geom_dhbtri(mapping = NULL, data = NULL, stat="identity",...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_region(mapping = NULL, data = NULL, stat="identity",...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
+geom_label_region(mapping = NULL, data = NULL, ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,short=FALSE)
+geom_regiontri(mapping = NULL, data = NULL,stat="identity", ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,coord=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -79,7 +85,9 @@ ggplot(immune_long) +
 
 data(dhb_cars)
 tris<-tri_alloc(dhb_cars[,-1], c("0","1","2","3+"), names=dhb_cars$dhb )
-tri_data<-data.frame(DHB=rep(rownames(tris),6), cars=as.vector(tris), tri_id=rep(1:6,each=nrow(tris)))
+tri_data<-data.frame(DHB=rep(rownames(tris),6),
+                     cars=as.vector(tris),
+		     tri_id=rep(1:6,each=nrow(tris)))
 
 ggplot(tri_data)+
 	geom_dhbtri(aes(map_id=DHB,class_id=tri_id, fill=cars),alpha=0.5)+
@@ -94,7 +102,9 @@ tri_eth<-tri_alloc(as.matrix(region_ethnicity[,-1]),
 	names=region_ethnicity$Area)
 
 
-tri_data<-data.frame(Region=rep(rownames(tri_eth),6), ethnicity=as.vector(tri_eth), tri_id=rep(1:6,each=nrow(tri_eth)))
+tri_data<-data.frame(Region=rep(rownames(tri_eth),6),
+                     ethnicity=as.vector(tri_eth),
+		     tri_id=rep(1:6,each=nrow(tri_eth)))
 
 ggplot(tri_data)+
 	geom_regiontri(aes(map_id=Region,class_id=tri_id, fill=ethnicity))+
