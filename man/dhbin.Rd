@@ -57,6 +57,8 @@ character expansion factor
 Called for its side-effect
 }
 
+\references{Lumley T (2019) Stylised Choropleth Maps for New Zealand Regions and District Health Boards. arXiv:1912.04435
+}
 \seealso{
 \code{\link{tri_alloc}} for the Sainte-Laguë method to allocate triangles based on counts
 }
