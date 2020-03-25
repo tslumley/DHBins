@@ -165,6 +165,9 @@ GeomDHBtri <- ggproto("GeomDHBtri", GeomPolygon,
       idx<-with(data, dhb_lookuptri(map_id,class_id))
       radius<-radius[idx]
       data$full_id<-with(data,paste(map_id,as.numeric(as.factor(class_id)),sep="_"))
+
+      radius<-radius[!duplicated(data$map_id)]
+
 	
     map<-na.omit(
         data.frame(

@@ -159,8 +159,11 @@ GeomRegionTri <- ggproto("GeomRegionTri", GeomPolygon,
       
       idx<-with(data, region_lookuptri(map_id,class_id))
       radius<-radius[idx]
+
       data$map_id<-region_fixname(data$map_id)
       data$full_id<-with(data,paste(map_id,as.numeric(as.factor(class_id)),sep="_"))
+
+      radius<-radius[!duplicated(data$map_id)]
 	
     map<-na.omit(
         data.frame(
