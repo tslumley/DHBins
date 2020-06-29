@@ -8,11 +8,13 @@
 
 <title>Allocate triangles within hexagons — tri_alloc • DHBins</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Allocate triangles within hexagons — tri_alloc" />
-
 <meta property="og:description" content="This implements the Webster/Sainte-Laguë method to allocate six triangles in each hexagon, in proportion to counts in two or more classes." />
-
 
 
 
@@ -102,7 +103,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -124,13 +124,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>This implements the Webster/Sainte-Laguë method to allocate six triangles in each hexagon, in proportion to counts in two or more classes.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>tri_alloc</span>(<span class='no'>countmatrix</span>, <span class='no'>colours</span>, <span class='kw'>classes</span><span class='kw'>=</span><span class='no'>colours</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>countmatrix</span>))</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -147,11 +145,10 @@
       <td><p>A vector of names, for each row of <code>countmatrix</code>, to be applied to the output</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Matrix of class names, with six columns.  The rownames will be set to <code>names</code> if provided.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>dhb_cars</span>)

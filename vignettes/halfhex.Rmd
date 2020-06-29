@@ -20,7 +20,7 @@ Here, I'm going to map it by District Health Board. First, load the data
 
 ```{r}
 library(DHBins)
-data(nzcovid)
+load("nzcovid.rda")
 ```
 
 Next, we need population data. That's also in the package
